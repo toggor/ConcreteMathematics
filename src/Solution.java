@@ -9,12 +9,12 @@ public class Solution {
         s_to.add("stick_3");
 
 
-        s_from.add("1");
-        s_from.add("2");
-        s_from.add("3");
         s_from.add("4");
+        s_from.add("3");
+        s_from.add("2");
+        s_from.add("1");
 
-        for(int i=0; i<s_from.size(); i++){
+        for(int i=s_from.size()-1; i>0; i--){
             System.out.println(s_from.get(i));
         }
 
@@ -30,22 +30,21 @@ public class Solution {
     public static void moveRings (ArrayList<String> s_from, ArrayList<String> s_mid, ArrayList<String> s_to, Integer number){
         if (number <= 0){
             System.out.println("N is invalid");
-        }
-        if (number == 1){
-            System.out.println(s_from.get(1)+": "+ s_from.get(0)+" -> "+s_to.get(0));
-            s_to.add(s_from.get(1));
-            s_from.remove(1);
+        }if (number>1){
+            int i = number-1;
+            moveRings(s_from,s_to,s_mid,i);
+
+            System.out.println(s_from.get(s_from.size()-1)+": "+ s_from.get(0)+" -> "+s_to.get(0));
+            s_to.add(s_from.get(s_from.size()-1));
+            s_from.remove(s_from.size()-1);
+
+            moveRings(s_mid,s_from,s_to,i);
         }
         else {
-            if (number>1){
-                int i = number-1;
-                moveRings(s_from,s_to,s_mid,i);
-
+            if (number == 1){
                 System.out.println(s_from.get(s_from.size()-1)+": "+ s_from.get(0)+" -> "+s_to.get(0));
                 s_to.add(s_from.get(s_from.size()-1));
                 s_from.remove(s_from.size()-1);
-
-                moveRings(s_mid,s_from,s_to,i);
             }
         }
     }
